@@ -17,6 +17,10 @@ This file is imported into main.py to be used accordingly.
 import os
 import pygame
 
+#initialized things
+pygame.init()
+pygame.font.init()
+
 #constants
 WIDTH = 1280
 HEIGHT = 720
