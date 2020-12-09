@@ -44,24 +44,24 @@ class Player(object):
     #draw and animate the player
     def draw(self, win):
         #set an upper bound for the walk count to control how long each image is shown in the animation
-        if self.walkCount + 1 >= cn.upperBound:
+        if self.walkCount + 1 >= 12:
             self.walkCount = 0
 
         #display and animate the player in each direction
         if self.left:
-            win.blit(cn.walkLeft[self.walkCount//cn.framesShown], (self.x,self.y))
+            win.blit(cn.walkLeft[self.walkCount//3], (self.x,self.y))
             self.walkCount += 1
 
         elif self.right:
-            win.blit(cn.walkRight[self.walkCount//cn.framesShown], (self.x,self.y))
+            win.blit(cn.walkRight[self.walkCount//3], (self.x,self.y))
             self.walkCount +=1
 
         elif self.up:
-            win.blit(cn.walkBack[self.walkCount//cn.framesShown], (self.x,self.y))
+            win.blit(cn.walkBack[self.walkCount//3], (self.x,self.y))
             self.walkCount +=1
 
         elif self.down:
-            win.blit(cn.walkForward[self.walkCount//cn.framesShown], (self.x,self.y))
+            win.blit(cn.walkForward[self.walkCount//3], (self.x,self.y))
             self.walkCount +=1
 
         #if the player stops moving, display the standing image in the last direction it was moving

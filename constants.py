@@ -34,19 +34,16 @@ WHITE = (255, 255, 255)
 
 myfont = pygame.font.SysFont('Atari Classic', 40)
 
-framesShown = 6
-upperBound = 12 
-
 #directories and image loading
 ASSETS_DIR = "assets"
 BG_DIR = os.path.join(ASSETS_DIR, "backgroundAssets")
 PUZZLE_DIR = os.path.join(ASSETS_DIR, "puzzleAssets")
 PLAYER_DIR = os.path.join(ASSETS_DIR, "playerAssets")
 
-walkRight = [pygame.image.load(os.path.join(PLAYER_DIR, 'r2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r3.png'))]
-walkLeft = [pygame.image.load(os.path.join(PLAYER_DIR, 'l2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l3.png'))]
-walkBack = [pygame.image.load(os.path.join(PLAYER_DIR, 'b2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b3.png'))]
-walkForward = [pygame.image.load(os.path.join(PLAYER_DIR, 'f2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f3.png'))]
+walkRight = [pygame.image.load(os.path.join(PLAYER_DIR, 'r2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png'))]
+walkLeft = [pygame.image.load(os.path.join(PLAYER_DIR, 'l2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png'))]
+walkBack = [pygame.image.load(os.path.join(PLAYER_DIR, 'b2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png'))]
+walkForward = [pygame.image.load(os.path.join(PLAYER_DIR, 'f2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png'))]
 
 bg = pygame.image.load(os.path.join(BG_DIR, 'floor.png'))
 standRight = pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png'))
