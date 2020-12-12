@@ -17,6 +17,7 @@ This file displays all the images for the game and holds the player class.
 import pygame
 import constants as cn
 import os
+import levels as lvl
 
 #initialize pygame
 pygame.init()
@@ -40,6 +41,7 @@ class Player(object):
         self.down = False
         self.walkCount = 0
         self.score = 0
+        self.gameState = 1
 
     #draw and animate the player
     def draw(self, win):
