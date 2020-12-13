@@ -72,17 +72,22 @@ class Player(object):
 
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
-    player.score = int(pygame.time.get_ticks() / 1000)
-    textsurface = cn.myfont.render(str(player.score), False, (255, 255, 255))
     win.blit(cn.bg, (0,0))
     player.draw(win)
-    win.blit(textsurface,(10,10))
+    if player.gameState == 1:
+        player.score = int(pygame.time.get_ticks() / 5000)
+        textsurface = cn.myfont.render(str(player.score), False, (255, 255, 255))
+        win.blit(textsurface,(10,10))
+    if player.gameState == 0:
+        playText = cn.myfont.render("Play", False, (255, 255, 255))
+        win.blit(playText, (cn.WIDTH / 2, cn.HEIGHT / 2))
     pygame.display.update()
 
 def titleScreen():
     cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.png'))
-    cn.fontsize = 40
-    textsurface = cn.myfont.render("Play", False, cn.WHITE)
+
+def room1():
+    cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
 
 #create main player object
 player = Player(cn.WIDTH / 2, cn.HEIGHT / 2, 76, 108)
@@ -147,11 +152,14 @@ while run:
     if keys[pygame.K_x] or keys[pygame.K_ESCAPE]:
         pygame.quit()
 
+    if keys[pygame.K_y]:
+        player.gameState = 1
+
     if player.gameState == 0:
         titleScreen()
 
     elif player.gameState == 1:
-        pass
+        room1()
 
     elif player.gameState == 2:
         pass
