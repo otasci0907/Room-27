@@ -47,7 +47,7 @@ walkLeft = [pygame.image.load(os.path.join(PLAYER_DIR, 'l2.png')), pygame.image.
 walkBack = [pygame.image.load(os.path.join(PLAYER_DIR, 'b2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png'))]
 walkForward = [pygame.image.load(os.path.join(PLAYER_DIR, 'f2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png'))]
 
-bg = pygame.image.load(os.path.join(BG_DIR, 'floor.png'))
+bg = pygame.image.load(os.path.join(BG_DIR, 'checkinRoom.png'))
 standRight = pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png'))
 standLeft = pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png'))
 standBack = pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png'))
