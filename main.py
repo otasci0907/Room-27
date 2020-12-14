@@ -16,6 +16,7 @@ This file displays all the images for the game and holds the player class.
 #import modules needed
 import pygame
 import constants as cn
+import levels as lvl
 import os
 
 #initialize pygame
@@ -40,7 +41,7 @@ class Player(object):
         self.down = False
         self.walkCount = 0
         self.score = 0
-        self.gameState = 0
+        self.gameState = "checkin"
 
     #draw and animate the player
     def draw(self, win):
@@ -74,20 +75,13 @@ class Player(object):
 def redrawGameWindow():
     win.blit(cn.bg, (0,0))
     player.draw(win)
+    if player.gameState == 0:
+        win.blit(lvl.playText, (cn.WIDTH / 2, cn.HEIGHT / 2))
     if player.gameState == 1:
         player.score = int(pygame.time.get_ticks() / 5000)
-        textsurface = cn.myfont.render(str(player.score), False, (255, 255, 255))
+        textsurface = cn.basicText.render(str(player.score), False, (255, 255, 255))
         win.blit(textsurface,(10,10))
-    if player.gameState == 0:
-        playText = cn.myfont.render("Play", False, (255, 255, 255))
-        win.blit(playText, (cn.WIDTH / 2, cn.HEIGHT / 2))
     pygame.display.update()
-
-def titleScreen():
-    cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.png'))
-
-def room1():
-    cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
 
 #create main player object
 player = Player(cn.WIDTH / 2, cn.HEIGHT / 2, 76, 108)
@@ -153,24 +147,24 @@ while run:
         pygame.quit()
 
     if keys[pygame.K_y]:
-        player.gameState = 1
+        player.gameState = "1"
 
-    if player.gameState == 0:
-        titleScreen()
+    if player.gameState == "checkin":
+        lvl.titleScreen()
 
-    elif player.gameState == 1:
-        room1()
+    elif player.gameState == "1":
+        lvl.room1()
 
-    elif player.gameState == 2:
+    elif player.gameState == "2":
         pass
 
-    elif player.gameState == 3:
+    elif player.gameState == "3":
         pass
 
-    elif player.gameState == 4:
+    elif player.gameState == "win":
         pass
 
-    elif player.gameState == 5:
+    elif player.gameState == "lose":
         pass
 
     #call the game window update function from earlier
