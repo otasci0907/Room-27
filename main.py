@@ -41,11 +41,11 @@ class Player(object):
         self.down = False
         self.walkCount = 0
         self.score = 0
-        self.gameState = "checkin"
+        self.gameState = "title"
 
     #draw and animate the player
     def draw(self, win):
-        if self.gameState > 0:
+        if self.gameState != "title" and self.gameState != "win" and self.gameState != "lose":
             #set an upper bound for the walk count to control how long each image is shown in the animation
             if self.walkCount + 1 >= 12:
                 self.walkCount = 0
@@ -74,10 +74,10 @@ class Player(object):
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
     win.blit(cn.bg, (0,0))
-    player.draw(win)
-    if player.gameState == 0:
+    if player.gameState == "title":
         win.blit(lvl.playText, (cn.WIDTH / 2, cn.HEIGHT / 2))
-    if player.gameState == 1:
+    if player.gameState == "1":
+        player.draw(win)
         player.score = int(pygame.time.get_ticks() / 5000)
         textsurface = cn.basicText.render(str(player.score), False, (255, 255, 255))
         win.blit(textsurface,(10,10))
@@ -100,7 +100,7 @@ while run:
     #store all teh key presses
     keys = pygame.key.get_pressed()
 
-    if player.gameState == 1:
+    if player.gameState != "title" and player.gameState != "win" and player.gameState != "lose":
         #detect arrow key presses and move the player accordingly
         if keys[pygame.K_LEFT] and player.x > player.vel:
             player.x -= player.vel
@@ -149,7 +149,7 @@ while run:
     if keys[pygame.K_y]:
         player.gameState = "1"
 
-    if player.gameState == "checkin":
+    if player.gameState == "title":
         lvl.titleScreen()
 
     elif player.gameState == "1":
