@@ -32,10 +32,6 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
-fontsize = 40
-
-basicText = pygame.font.SysFont('Atari Classic', fontsize)
-
 #directories and image loading
 ASSETS_DIR = "assets"
 BG_DIR = os.path.join(ASSETS_DIR, "backgroundAssets")
