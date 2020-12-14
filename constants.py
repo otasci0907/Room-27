@@ -34,7 +34,7 @@ WHITE = (255, 255, 255)
 
 fontsize = 40
 
-myfont = pygame.font.SysFont('Atari Classic', fontsize)
+basicText = pygame.font.SysFont('Atari Classic', fontsize)
 
 #directories and image loading
 ASSETS_DIR = "assets"
