@@ -14,11 +14,13 @@ class Player(pygame.sprite.Sprite):
         self.y = y
         self.width = width
         self.height = height
+        self.rect = pygame.Rect(self.x, self.y, self.height, self.width)
         self.vel = 6
         self.left = False
         self.right = False
         self.up = False
         self.down = False
+        self.collided = False
         self.walkCount = 0
         self.score = 0
         self.gameState = "title"
@@ -29,22 +31,26 @@ class Player(pygame.sprite.Sprite):
             #set an upper bound for the walk count to control how long each image is shown in the animation
             if self.walkCount + 1 >= 12:
                 self.walkCount = 0
-
+            
             #display and animate the player in each direction
-            if self.left:
-                win.blit(cn.walkLeft[self.walkCount//3], (self.x,self.y))
+            if self.left and self.collided == False:
+                left = cn.walkLeft[self.walkCount//3]
+                win.blit(left, self.rect)
                 self.walkCount += 1
 
-            elif self.right:
-                win.blit(cn.walkRight[self.walkCount//3], (self.x,self.y))
+            elif self.right and self.collided == False:
+                right = cn.walkRight[self.walkCount//3]
+                win.blit(right, self.rect)
                 self.walkCount +=1
 
-            elif self.up:
-                win.blit(cn.walkBack[self.walkCount//3], (self.x,self.y))
+            elif self.up and self.collided == False:
+                back = cn.walkBack[self.walkCount//3]
+                win.blit(back, self.rect)
                 self.walkCount +=1
 
-            elif self.down:
-                win.blit(cn.walkForward[self.walkCount//3], (self.x,self.y))
+            elif self.down and self.collided == False:
+                forward = cn.walkForward[self.walkCount//3]
+                win.blit(forward, self.rect)
                 self.walkCount +=1
 
             #if the player stops moving, display the standing image in the last direction it was moving
