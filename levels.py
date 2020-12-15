@@ -31,11 +31,21 @@ class Furniture(pygame.sprite.Sprite):
         self.width = width
         self.height = height
 
+class Room(object):
+    def __init__(self, furniture, coords, image):
+        self.furniture = furniture
+        self.coords = coords
+        self.image = image
+
+    def draw(self, win):
+        cn.bg = self.image
+        win.blit(cn.bg, (0,0))
+
+        for i in furniture:
+            win.blit(furniture[i], coords[i])
+
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
-
-def titleScreen():
-    cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
 
 def room1():
     cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
