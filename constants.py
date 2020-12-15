@@ -49,3 +49,11 @@ standLeft = pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png'))
 standBack = pygame.image.load(os.path.join(PLAYER_DIR, 'b1.png'))
 standForward = pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png'))
 char = pygame.image.load(os.path.join(PLAYER_DIR, 'f1.png'))
+
+sofaBack = pygame.image.load(os.path.join(BG_DIR, 'bigCouchBack.png'))
+sofaLeft = pygame.image.load(os.path.join(BG_DIR, 'bigCouchLeft.png'))
+sofaRight = pygame.image.load(os.path.join(BG_DIR, 'bigCouchRight.png'))
+
+desk = pygame.image.load(os.path.join(BG_DIR, 'desk.png'))
+leaderboard = pygame.image.load(os.path.join(BG_DIR, 'leaderboard.png'))
+table = pygame.image.load(os.path.join(BG_DIR, 'table.png'))
