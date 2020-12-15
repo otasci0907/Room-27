@@ -60,8 +60,6 @@ while run:
     for i in range(len(lvl.room1.furniture)):
         if player.rect.colliderect(lvl.room1.furniture[i].get_rect(topleft = lvl.room1.coords[i])):
             player.collided = True
-        else:
-            player.collided = False
 
     #store all teh key presses
     keys = pygame.key.get_pressed()
@@ -103,6 +101,44 @@ while run:
             player.up = False
             player.down = True
             cn.char = cn.standForward
+        
+        elif player.collided == True:
+            if cn.char == cn.standLeft:
+                player.x += player.vel
+                player.rect.left += player.vel
+                player.right = True
+                player.left = False
+                player.up = False
+                player.down = False
+                player.collided = False
+                cn.char = cn.standRight
+            elif cn.char == cn.standRight:
+                player.x -= player.vel
+                player.rect.left -= player.vel
+                player.right = False
+                player.left = True
+                player.up = False
+                player.down = False
+                player.collided = False
+                cn.char = cn.standLeft
+            elif cn.char == cn.standBack:
+                player.rect.top += player.vel
+                player.y += player.vel
+                player.right = False
+                player.left = False
+                player.up = False
+                player.down = True
+                player.collided = False
+                cn.char = cn.standForward
+            elif cn.char == cn.standForward:
+                player.rect.top -= player.vel
+                player.y -= player.vel
+                player.right = False
+                player.left = False
+                player.up = True
+                player.down = False
+                player.collided = False
+                cn.char = cn.standBack
 
         #if the player is not moving, reset the walking animation
         else:
@@ -111,6 +147,7 @@ while run:
             player.up = False
             player.down = False
             player.walkCount = 0
+            player.collided = False
 
     #if X or ESC are pressed, quit the game
     if keys[pygame.K_x] or keys[pygame.K_ESCAPE]:
