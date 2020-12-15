@@ -30,21 +30,21 @@ clock = pygame.time.Clock()
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
     win.blit(cn.bg, (0,0))
-
     if player.gameState == "title":
         lvl.playText.draw(win)
         lvl.titleText.draw(win)
 
     if player.gameState == "1":
-        player.draw(win)
         player.score = int(pygame.time.get_ticks() / 5000)
         scoreText = lvl.Text(20, 20, cn.WHITE, str(player.score), 40)
         scoreText.draw(win)
+        lvl.room1.draw(win)
+        player.draw(win)
 
     pygame.display.update()
 
 #create main player object
-player = pl.Player(cn.WIDTH / 2, cn.HEIGHT / 2, 76, 108)
+player = pl.Player(cn.WIDTH / 2, cn.HEIGHT / 2 + 100, 76, 108)
 
 #main loop
 run = True
@@ -111,15 +111,6 @@ while run:
 
     if player.gameState == "title":
         cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
-
-    elif player.gameState == "1":
-        lvl.room1()
-
-    elif player.gameState == "2":
-        pass
-
-    elif player.gameState == "3":
-        pass
 
     elif player.gameState == "win":
         pass
