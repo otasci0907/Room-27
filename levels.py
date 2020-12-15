@@ -39,13 +39,15 @@ class Room(object):
 
     def draw(self, win):
         cn.bg = self.image
-        win.blit(cn.bg, (0,0))
 
-        for i in furniture:
-            win.blit(furniture[i], coords[i])
+        for i in range(len(self.furniture)):
+            win.blit(self.furniture[i], self.coords[i])
 
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
 
-def room1():
-    cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
+
+room1Image = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
+room1Furn = [cn.sofaBack, cn.sofaBack, cn.sofaLeft, cn.sofaLeft, cn.sofaLeft, cn.sofaRight, cn.sofaRight, cn.sofaRight, cn.desk, cn.table, cn.table, cn.leaderboard]
+room1Coords = [(132, 500), (1020, 500), (276, 204), (1162, 204), (1164, 356), (48, 204), (48, 356), (928, 204), (448, 244), (160, 248), (1040, 248), (576, 92)]
+room1 = Room(room1Furn, room1Coords, room1Image)
