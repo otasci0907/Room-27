@@ -41,7 +41,8 @@ class Room(object):
         cn.bg = self.image
 
         for i in range(len(self.furniture)):
-            win.blit(self.furniture[i], self.coords[i])
+            rect = self.furniture[i].get_rect(topleft = self.coords[i])
+            win.blit(self.furniture[i], rect)
 
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
