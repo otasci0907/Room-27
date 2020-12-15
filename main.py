@@ -57,12 +57,19 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+    for i in range(len(lvl.room1.furniture)):
+        if player.rect.colliderect(lvl.room1.furniture[i].get_rect(topleft = lvl.room1.coords[i])):
+            player.collided = True
+        else:
+            player.collided = False
+
     #store all teh key presses
     keys = pygame.key.get_pressed()
 
     if player.gameState != "title" and player.gameState != "win" and player.gameState != "lose":
         #detect arrow key presses and move the player accordingly
-        if keys[pygame.K_LEFT] and player.x > player.vel:
+        if keys[pygame.K_LEFT] and player.x > player.vel  and player.collided == False:
+            player.rect.left -= player.vel
             player.x -= player.vel
             player.left = True
             player.right = False
@@ -70,7 +77,8 @@ while run:
             player.down = False
             cn.char = cn.standLeft
 
-        elif keys[pygame.K_RIGHT] and player.x < cn.WIDTH - player.width - player.vel:
+        elif keys[pygame.K_RIGHT] and player.rect.x < cn.WIDTH - player.rect.width - player.vel  and player.collided == False:
+            player.rect.left += player.vel
             player.x += player.vel
             player.right = True
             player.left = False
@@ -78,7 +86,8 @@ while run:
             player.down = False
             cn.char = cn.standRight
 
-        elif keys[pygame.K_UP] and player.y > player.vel + 100:
+        elif keys[pygame.K_UP] and player.rect.y > player.vel + 100  and player.collided == False:
+            player.rect.top -= player.vel
             player.y -= player.vel
             player.left = False
             player.right = False
@@ -86,7 +95,8 @@ while run:
             player.down = False
             cn.char = cn.standBack
 
-        elif keys[pygame.K_DOWN] and player.y < cn.HEIGHT - player.height - player.vel:
+        elif keys[pygame.K_DOWN] and player.rect.y < cn.HEIGHT - player.rect.height - player.vel  and player.collided == False:
+            player.rect.top += player.vel
             player.y += player.vel
             player.right = False
             player.left = False
