@@ -43,8 +43,14 @@ def redrawGameWindow():
         scoreText = lvl.Text(20, 20, cn.WHITE, str(player.score), 40)
         scoreText.draw(win)
         lvl.room1.draw(win)
-        player.draw(win)
-
+        if lvl.gamemode == False:
+            if lvl.room1Text == 1:
+                lvl.puzzleDirections.draw(win)
+                lvl.puzzleDirections2.draw(win)
+            player.draw(win)
+        if lvl.gamemode == True:
+            pygame.draw.rect(win, cn.BLACK, (0, 0, 1280, 720))
+        pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
     pygame.display.update()
 
 #create main player object
@@ -55,6 +61,7 @@ run = True
 while run:
     #get the clock ticking
     clock.tick(27)
+    keys = pygame.key.get_pressed()
 
     #if the program is quit, close it (duh)
     for event in pygame.event.get():
@@ -66,8 +73,13 @@ while run:
         if player.rect.colliderect(lvl.room1.furniture[i].get_rect(topleft = lvl.room1.coords[i])):
             player.collided = True
 
-    #store all teh key presses
-    keys = pygame.key.get_pressed()
+    deskRect = lvl.room1.furniture[8].get_rect(topleft = lvl.room1.coords[8])
+    if player.rect.top - 10 <= deskRect.top + deskRect.height:
+        lvl.room1Text = 2
+        if keys[pygame.K_q]:
+            lvl.gamemode = True
+    else:
+        lvl.room1Text = 1
 
     if player.gameState != "title" and player.gameState != "win" and player.gameState != "lose":
         #detect arrow key presses and move the player accordingly
