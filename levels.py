@@ -21,16 +21,6 @@ class Text(object):
         text_height = renderText.get_height()
         win.blit(renderText, (self.x - text_width / 2, self.y - text_height / 2))
 
-
-class Furniture(pygame.sprite.Sprite):
-    #all the variables stored in the player object
-    def __init__(self,x,y,width,height):
-        pygame.sprite.Sprite.__init__(self)
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-
 class Room(object):
     def __init__(self, furniture, coords, image):
         self.furniture = furniture
