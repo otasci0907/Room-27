@@ -28,11 +28,8 @@ win = pygame.display.set_mode((cn.WIDTH, cn.HEIGHT))
 pygame.display.set_caption("Room 27")
 clock = pygame.time.Clock()
 volume = 0.5
-pygame.mixer.music.load(os.path.join(cn.MUSIC_DIR, 'rustboro.mp3'))
-pygame.mixer.music.play(0) # repeat 5 times
-pygame.mixer.music.stop()
-pygame.mixer.music.queue(os.path.join(cn.MUSIC_DIR, 'rustboro2.mp3'))
-pygame.mixer.music.play(-1)
+first = pygame.mixer.Sound(os.path.join(cn.MUSIC_DIR, 'rustboro.mp3'))
+first.play(-1)
 
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
@@ -63,6 +60,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+            first.stop()
 
     for i in range(len(lvl.room1.furniture)):
         if player.rect.colliderect(lvl.room1.furniture[i].get_rect(topleft = lvl.room1.coords[i])):
@@ -157,11 +155,14 @@ while run:
             player.collided = False
 
     #if X or ESC are pressed, quit the game
-    if keys[pygame.K_x] or keys[pygame.K_ESCAPE]:
+    if keys[pygame.K_ESCAPE]:
         pygame.quit()
 
     if keys[pygame.K_y]:
         player.gameState = "1"
+
+    if keys[pygame.K_x]:
+        player.gameState = "title"
 
     if player.gameState == "title":
         cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
