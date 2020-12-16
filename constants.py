@@ -37,6 +37,7 @@ ASSETS_DIR = "assets"
 BG_DIR = os.path.join(ASSETS_DIR, "backgroundAssets")
 PUZZLE_DIR = os.path.join(ASSETS_DIR, "puzzleAssets")
 PLAYER_DIR = os.path.join(ASSETS_DIR, "playerAssets")
+MUSIC_DIR = os.path.join(ASSETS_DIR, "Music")
 
 walkRight = [pygame.image.load(os.path.join(PLAYER_DIR, 'r2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'r1.png'))]
 walkLeft = [pygame.image.load(os.path.join(PLAYER_DIR, 'l2.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l3.png')), pygame.image.load(os.path.join(PLAYER_DIR, 'l1.png'))]
