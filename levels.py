@@ -5,6 +5,9 @@ import pygame
 pygame.init()
 pygame.font.init()
 
+gamemode = False
+room1Text = 1
+
 class Text(object):
     #all the variables stored in the player object
     def __init__(self, x, y, color, text, size):
@@ -36,9 +39,11 @@ class Room(object):
 
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
-
+puzzleDirections = Text(1040, 620, cn.BLACK, "Walk up to the desk", 30)
+puzzleDirections2 = Text(1040, 640, cn.BLACK, "Then press enter to begin the puzzle!", 30)
+pressEnter = Text(1040, 630, cn.BLACK, "Press [Enter]!", 50)
 
 room1Image = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
 room1Furn = [cn.sofaBack, cn.sofaBack, cn.sofaLeft, cn.sofaLeft, cn.sofaLeft, cn.sofaRight, cn.sofaRight, cn.sofaRight, cn.desk, cn.table, cn.table]
-room1Coords = [(132, 500), (1020, 500), (276, 204), (1162, 204), (1164, 356), (48, 204), (48, 356), (928, 204), (548, 260), (160, 248), (1040, 248)]
+room1Coords = [(132, 500), (1020, 500), (276, 204), (1162, 204), (1164, 356), (48, 204), (48, 356), (928, 204), (544, 212), (160, 248), (1040, 248)]
 room1 = Room(room1Furn, room1Coords, room1Image)
