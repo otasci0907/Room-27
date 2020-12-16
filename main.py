@@ -23,9 +23,16 @@ import player as pl
 #initialize pygame
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 win = pygame.display.set_mode((cn.WIDTH, cn.HEIGHT))
 pygame.display.set_caption("Room 27")
 clock = pygame.time.Clock()
+volume = 0.5
+pygame.mixer.music.load(os.path.join(cn.MUSIC_DIR, 'rustboro.mp3'))
+pygame.mixer.music.play(0) # repeat 5 times
+pygame.mixer.music.stop()
+pygame.mixer.music.queue(os.path.join(cn.MUSIC_DIR, 'rustboro2.mp3'))
+pygame.mixer.music.play(-1)
 
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
