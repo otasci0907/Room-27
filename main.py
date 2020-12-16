@@ -40,21 +40,22 @@ def redrawGameWindow():
 
     if player.gameState == "1":
         player.score = int(pygame.time.get_ticks() / 5000)
-        scoreText = lvl.Text(20, 20, cn.WHITE, str(player.score), 40)
+        scoreText = lvl.Text(45, 40, cn.BLACK, str(player.score), 40)
         scoreText.draw(win)
         lvl.room1.draw(win)
-        if lvl.gamemode == False:
-            if lvl.room1Text == 1:
-                lvl.puzzleDirections.draw(win)
-                lvl.puzzleDirections2.draw(win)
-            player.draw(win)
+        pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
+        if lvl.room1Text == 1:
+            lvl.puzzleDirections.draw(win)
+            lvl.puzzleDirections2.draw(win)
+        elif lvl.room1Text == 2:
+            lvl.pressEnter.draw(win)
+        player.draw(win)
         if lvl.gamemode == True:
             pygame.draw.rect(win, cn.BLACK, (0, 0, 1280, 720))
-        pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
     pygame.display.update()
 
 #create main player object
-player = pl.Player(cn.WIDTH / 2, cn.HEIGHT / 2 + 100, 76, 108)
+player = pl.Player(cn.WIDTH / 2 - 32, cn.HEIGHT / 2 + 100, 76, 108)
 
 #main loop
 run = True
@@ -74,10 +75,12 @@ while run:
             player.collided = True
 
     deskRect = lvl.room1.furniture[8].get_rect(topleft = lvl.room1.coords[8])
-    if player.rect.top - 10 <= deskRect.top + deskRect.height:
+    if player.rect.top - 10 <= deskRect.top + deskRect.height and player.rect.left + player.rect.width + 10 >= deskRect.left and player.rect.left - 10 <= deskRect.left + deskRect.width and player.rect.top + player.rect.height + 10 >= deskRect.top:
         lvl.room1Text = 2
-        if keys[pygame.K_q]:
+        if keys[pygame.K_RETURN]:
             lvl.gamemode = True
+        elif keys[pygame.K_w]:
+            lvl.gamemode = False
     else:
         lvl.room1Text = 1
 
