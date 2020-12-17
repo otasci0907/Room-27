@@ -7,6 +7,8 @@ pygame.font.init()
 
 gamemode = False
 room1Text = 1
+room27Text = 1
+roomSuperText = 1
 
 class Text(object):
     #all the variables stored in the player object
@@ -37,9 +39,13 @@ class Room(object):
             rect = self.furniture[i].get_rect(topleft = self.coords[i])
             win.blit(self.furniture[i], rect)
 
+def simon(win):
+    
+
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
 puzzleDirections = Text(1040, 620, cn.BLACK, "Walk up to the desk", 30)
+puzzleDirectionsSuper = Text(1040, 620, cn.BLACK, "Walk up to the bookshelf", 30)
 puzzleDirections2 = Text(1040, 640, cn.BLACK, "Then press enter to begin the puzzle!", 30)
 pressEnter = Text(1040, 630, cn.BLACK, "Press [Enter]!", 50)
 
@@ -47,3 +53,13 @@ room1Image = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
 room1Furn = [cn.sofaBack, cn.sofaBack, cn.sofaLeft, cn.sofaLeft, cn.sofaLeft, cn.sofaRight, cn.sofaRight, cn.sofaRight, cn.desk, cn.table, cn.table]
 room1Coords = [(132, 500), (1020, 500), (276, 204), (1162, 204), (1164, 356), (48, 204), (48, 356), (928, 204), (544, 212), (160, 248), (1040, 248)]
 room1 = Room(room1Furn, room1Coords, room1Image)
+
+room27Image = pygame.image.load(os.path.join(cn.BG_DIR, 'room27.png'))
+room27Furn = [cn.chair, cn.couchLeft, cn.dresser, cn.coffeeDesk, cn.bed1]
+room27Coords = [(316, 160), (408, 408), (604, 72), (304, 392), (736, 88)]
+room27 = Room(room27Furn, room27Coords, room27Image)
+
+roomSuperImage = pygame.image.load(os.path.join(cn.BG_DIR, 'superRoom.png'))
+roomSuperFurn = [cn.couchBack, cn.sofaRight, cn.dresser,  cn.redBed, cn.bookshelf, cn.laptopDesk]
+roomSuperCoords = [(400, 396), (308, 256), (604, 72), (736, 88), (304, 116), (304, 540)]
+roomSuper = Room(roomSuperFurn, roomSuperCoords, roomSuperImage)
