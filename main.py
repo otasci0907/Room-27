@@ -15,6 +15,7 @@ This file displays all the images for the game and holds the player class.
 
 #import modules needed
 import pygame
+import sys
 import constants as cn
 import levels as lvl
 import os
@@ -31,6 +32,17 @@ volume = 0.5
 first = pygame.mixer.Sound(os.path.join(cn.MUSIC_DIR, 'rustboro.mp3'))
 first.play(-1)
 
+greenButton = pygame.Rect(lvl.greenCoords, lvl.buttonSizes)
+blueButton = pygame.Rect(lvl.blueCoords, lvl.buttonSizes)
+yellowButton = pygame.Rect(lvl.yellowCoords, lvl.buttonSizes)
+redButton = pygame.Rect(lvl.redCoords, lvl.buttonSizes)
+entered = []
+
+green = cn.GREEN
+blue = cn.BLUE
+yellow = cn.YELLOW
+red = cn.RED
+
 #function to store the procedures to redraw the game window
 def redrawGameWindow():
     win.blit(cn.bg, (0,0))
@@ -40,7 +52,7 @@ def redrawGameWindow():
         lvl.titleText.draw(win)
 
     if player.gameState == "1":
-        scoreText = lvl.Text(45, 40, cn.BLACK, str(player.score), 40)
+        scoreText = lvl.Text(45, 40, cn.WHITE, str(player.score), 40)
         scoreText.draw(win)
         lvl.room1.draw(win)
         pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
@@ -51,7 +63,7 @@ def redrawGameWindow():
             lvl.pressEnter.draw(win)
 
     if player.gameState == "2":
-        scoreText = lvl.Text(315, 40, cn.BLACK, str(player.score), 40)
+        scoreText = lvl.Text(315, 40, cn.WHITE, str(player.score), 40)
         scoreText.draw(win)
         lvl.room27.draw(win)
         pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
@@ -62,7 +74,7 @@ def redrawGameWindow():
             lvl.pressEnter.draw(win)
     
     if player.gameState == "3":
-        scoreText = lvl.Text(315, 40, cn.BLACK, str(player.score), 40)
+        scoreText = lvl.Text(315, 40, cn.WHITE, str(player.score), 40)
         scoreText.draw(win)
         lvl.roomSuper.draw(win)
         pygame.draw.rect(win, cn.WHITE, (840, 600, 400, 60))
@@ -76,12 +88,19 @@ def redrawGameWindow():
         player.draw(win)
         if lvl.gamemode == True:
             pygame.draw.rect(win, cn.BLACK, (0, 0, 1280, 720))
+            if player.gameState == "1":
+                pygame.draw.rect(win, green, greenButton)
+                pygame.draw.rect(win, blue, blueButton)
+                pygame.draw.rect(win, yellow, yellowButton)
+                pygame.draw.rect(win, red, redButton)
         
-
     pygame.display.update()
 
 #create main player object
 player = pl.Player(cn.WIDTH / 2 - 32, cn.HEIGHT / 2 + 100, 76, 108)
+
+simonSays = False
+correct = []
 
 #main loop
 run = True
@@ -90,11 +109,56 @@ while run:
     clock.tick(27)
     keys = pygame.key.get_pressed()
 
+    if player.gameState == "1" and lvl.gamemode == True:
+        simonSays = True
+    else:
+        simonSays = False
+
     #if the program is quit, close it (duh)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             first.stop()
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = event.pos
+            if simonSays:
+                green = cn.GREEN
+                yellow = cn.YELLOW
+                blue = cn.BLUE
+                red = cn.RED
+                if greenButton.collidepoint(mouse_pos):
+                    entered.append("green")
+                    green = (0, 200, 0)
+                elif yellowButton.collidepoint(mouse_pos):
+                    entered.append("yellow")
+                    yellow = (200, 200, 0)
+                elif blueButton.collidepoint(mouse_pos):
+                    entered.append("blue")
+                    blue = (0, 0, 200)
+                elif redButton.collidepoint(mouse_pos):
+                    entered.append("red")
+                    red = (200, 0, 0)
+
+                if len(entered) == 8:
+                    for i in range(len(entered)):
+                        if entered[i] == lvl.simonPattern[i]:
+                            correct.append("true")
+                        else:
+                            player.lives = 2
+                            if player.lives == 0:
+                                player.gameState = "lose"
+
+    if len(entered) > 8:
+        player.lives = 2
+        if player.lives == 0:
+            player.gameState = "lose"
+
+    if correct.count("true") == 8:
+        lvl.gamemode = False
+        player.gameState = "2"
+
     if player.gameState == "1":
         for i in range(len(lvl.room1.furniture)):
             if player.rect.colliderect(lvl.room1.furniture[i].get_rect(topleft = lvl.room1.coords[i])):
@@ -316,13 +380,6 @@ while run:
 
     if keys[pygame.K_y]:
         player.gameState = "1"
-
-    if gamemode == True and player.gameState == "1":
-        
-
-    if keys[pygame.K_g]:
-        player.gameState = "2"
-        lvl.gamemode == False
 
     if keys[pygame.K_f]:
         player.gameState = "3"

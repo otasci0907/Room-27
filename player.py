@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.collided = False
         self.walkCount = 0
         self.score = 0
+        self.lives = 3
         self.gameState = "title"
 
     #draw and animate the player

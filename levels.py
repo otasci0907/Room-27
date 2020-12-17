@@ -10,6 +10,13 @@ room1Text = 1
 room27Text = 1
 roomSuperText = 1
 
+simonPattern = ["yellow", "blue", "green", "yellow", "red", "blue", "blue", "green"]
+greenCoords = ((cn.WIDTH / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE), (cn.HEIGHT / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE))
+yellowCoords = ((cn.WIDTH / 2) + cn.BUTTONGAPSIZE, (cn.HEIGHT / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE))
+blueCoords = ((cn.WIDTH / 2) + cn.BUTTONGAPSIZE, (cn.HEIGHT / 2) + cn.BUTTONGAPSIZE)
+redCoords = ((cn.WIDTH / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE), (cn.HEIGHT / 2) + cn.BUTTONGAPSIZE)
+buttonSizes = (cn.BUTTONSIZE, cn.BUTTONSIZE)
+
 class Text(object):
     #all the variables stored in the player object
     def __init__(self, x, y, color, text, size):
@@ -39,9 +46,6 @@ class Room(object):
             rect = self.furniture[i].get_rect(topleft = self.coords[i])
             win.blit(self.furniture[i], rect)
 
-def simon(win):
-    
-
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
 puzzleDirections = Text(1040, 620, cn.BLACK, "Walk up to the desk", 30)
@@ -63,3 +67,5 @@ roomSuperImage = pygame.image.load(os.path.join(cn.BG_DIR, 'superRoom.png'))
 roomSuperFurn = [cn.couchBack, cn.sofaRight, cn.dresser,  cn.redBed, cn.bookshelf, cn.laptopDesk]
 roomSuperCoords = [(400, 396), (308, 256), (604, 72), (736, 88), (304, 116), (304, 540)]
 roomSuper = Room(roomSuperFurn, roomSuperCoords, roomSuperImage)
+
+#simonDirections = Text()
