@@ -10,7 +10,7 @@ room1Text = 1
 room27Text = 1
 roomSuperText = 1
 
-simonPattern = ["yellow", "blue", "green", "yellow", "red", "blue", "blue", "green"]
+simonPattern = ["yellow", "blue", "green", "red"]
 greenCoords = ((cn.WIDTH / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE), (cn.HEIGHT / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE))
 yellowCoords = ((cn.WIDTH / 2) + cn.BUTTONGAPSIZE, (cn.HEIGHT / 2) - (cn.BUTTONSIZE + cn.BUTTONGAPSIZE))
 blueCoords = ((cn.WIDTH / 2) + cn.BUTTONGAPSIZE, (cn.HEIGHT / 2) + cn.BUTTONGAPSIZE)
@@ -48,9 +48,7 @@ class Room(object):
 
 playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
-puzzleDirections = Text(1040, 620, cn.BLACK, "Walk up to the desk", 30)
-puzzleDirectionsSuper = Text(1040, 620, cn.BLACK, "Walk up to the bookshelf", 30)
-puzzleDirections2 = Text(1040, 640, cn.BLACK, "Then press enter to begin the puzzle!", 30)
+puzzleDirections = Text(1040, 630, cn.BLACK, "Explore the room!", 40)
 pressEnter = Text(1040, 630, cn.BLACK, "Press [Enter]!", 50)
 
 room1Image = pygame.image.load(os.path.join(cn.BG_DIR, 'checkinRoom.png'))
@@ -68,4 +66,10 @@ roomSuperFurn = [cn.couchBack, cn.sofaRight, cn.dresser,  cn.redBed, cn.bookshel
 roomSuperCoords = [(400, 396), (308, 256), (604, 72), (736, 88), (304, 116), (304, 540)]
 roomSuper = Room(roomSuperFurn, roomSuperCoords, roomSuperImage)
 
-#simonDirections = Text()
+simonSetup = Text(cn.WIDTH / 2, 40, cn.WHITE, "You enter the hotel lobby in order to begin your vacation! You hear the doors lock behind you!", 40)
+simonSetup2 = Text(cn.WIDTH / 2, 70, cn.WHITE, "The door lock has been replaced by what seems like a simon says sequence lock!", 40)
+simonDirections = Text(cn.WIDTH / 2, 100, cn.WHITE, "Enter the parts of the sequence that you have found around the room to unlock the door!", 40)
+first = Text(1040, 630, cn.BLACK, "1: yellow", 50)
+second = Text(1040, 630, cn.BLACK, "2: blue", 50)
+third = Text(1040, 630, cn.BLACK, "3: green", 50)
+fourth = Text(1040, 630, cn.BLACK, "4: red", 50)
