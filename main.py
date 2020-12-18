@@ -34,6 +34,14 @@ volume = 0.01
 first = pygame.mixer.Sound(os.path.join(cn.MUSIC_DIR, 'rustboro.mp3'))
 first.play(-1)
 
+currentlySelected = "play"
+
+leaderBoardText = "Leaderboard"
+rank1 = "ABG: 15"
+rank2 = "WEN: 17"
+rank3 = "GER: 18"
+rank4 = "TES: 21"
+
 greenButton = pygame.Rect(lvl.greenCoords, lvl.buttonSizes)
 blueButton = pygame.Rect(lvl.blueCoords, lvl.buttonSizes)
 yellowButton = pygame.Rect(lvl.yellowCoords, lvl.buttonSizes)
@@ -56,7 +64,7 @@ unscrambled = ['b', 'o', 'o', 'k', 's', 'h', 'e', 'l', 'f']
 typedLetters = ""
 
 typedDecode = []
-decodingChallenge = "Throughout this hotel, you have been finding "
+decodingChallenge = "Throughout this hotel, you have been finding letters to a code to leave the hotel."
 typedLettersDecode = ""
 decoded = ['f', 'b', 'l', 'a']
 
@@ -75,8 +83,25 @@ def redrawGameWindow():
     player.score = int(pygame.time.get_ticks() / 5000)
     lives = "Lives: " + str(player.lives)
     if player.gameState == "title":
-        lvl.playText.draw(win)
+        selectedFont = 60
+        unselectedFont = 40
+        if currentlySelected == "play":
+            playText = lvl.Text(640, 360, cn.WHITE, "Play", selectedFont)
+            instructionsText = lvl.Text(640, 420, cn.WHITE, "Instructions", unselectedFont)
+        elif currentlySelected == "instructions":
+            playText = lvl.Text(640, 360, cn.WHITE, "Play", unselectedFont)
+            instructionsText = lvl.Text(640, 420, cn.WHITE, "Instructions", selectedFont)
+        playText.draw(win)
+        instructionsText.draw(win)
         lvl.titleText.draw(win)
+
+    if player.gameState == "instructions":
+        lvl.instructions1.draw(win)
+        lvl.instructions2.draw(win)
+        lvl.instructions3.draw(win)
+        lvl.instructions4.draw(win)
+        lvl.instructions5.draw(win)
+        lvl.instructions6.draw(win)
 
     if player.gameState == "1":
         scoreText = lvl.Text(45, 40, cn.WHITE, str(player.score), 40)
@@ -167,8 +192,11 @@ def redrawGameWindow():
                 question.draw(win)
                 enteredText.draw(win)
             if player.gameState == "3":
-                roomDirections = lvl.Text(cn.WIDTH / 2, 40, cn.WHITE, "Decode the following code that you have been collecting throughout the game", 40)
+                room3Setup = lvl.Text(cn.WIDTH / 2, 40, cn.WHITE, decodingChallenge, 40)
+                roomDirections = lvl.Text(cn.WIDTH / 2, 70, cn.WHITE, "Decode the following code that you have found while exploring the hotel!", 40)
+                roomHint = lvl.Text(cn.WIDTH / 2, 100, cn.WHITE, "[Hint: symbols to numbers to letters]", 30)
                 roomDirections.draw(win)
+                roomHint.draw(win)
                 if displayWinGame:
                     win3Text = lvl.Text(cn.WIDTH / 2, 650, cn.WHITE, "Congratulations! You have defeated the supervisor!", 40)
                     win3Text2 = lvl.Text(cn.WIDTH / 2, 680, cn.WHITE, "Press [Enter] to exit the hotel!", 40)
@@ -179,11 +207,47 @@ def redrawGameWindow():
                     lose2Text2 = lvl.Text(cn.WIDTH / 2, 680, cn.WHITE, "Press [Enter] to continue to the next room!", 40)
                     lose2Text.draw(win)
                     lose2Text2.draw(win)
-                questionDecode = lvl.Text(cn.WIDTH / 2, 200, cn.WHITE, solveText, 40)
+                questionDecode = lvl.Text(cn.WIDTH / 2, 200, cn.WHITE, codeText, 40)
                 decodedText = lvl.Text(cn.WIDTH / 2, 250, cn.WHITE, typedLettersDecode, 40)
                 questionDecode.draw(win)
                 decodedText.draw(win)
         
+    if player.gameState == "win":
+        winText = lvl.Text(640, 200, cn.WHITE, "YOU WIN!!!", 150)
+        winsubText = lvl.Text(640, 280, cn.WHITE, "You have successfully completed all the puzzles!", 50)
+        winsubText3 = lvl.Text(640, 310, cn.WHITE, "and have escaped from the hotel!!", 50)
+        winsubText2 = lvl.Text(640, 700, cn.WHITE, "Press [Escape] to exit the game.", 40)
+        winText.draw(win)
+        winsubText.draw(win)
+        winsubText2.draw(win)
+        winsubText3.draw(win)
+    if player.gameState == "lose":
+        loseText = lvl.Text(640, 200, cn.WHITE, "You have failed!", 150)
+        losesubText = lvl.Text(640, 280, cn.WHITE, "You have lost all of your lives", 50)
+        losesubText3 = lvl.Text(640, 310, cn.WHITE, "and could not escape the hotel", 50)
+        losesubText2 = lvl.Text(640, 700, cn.WHITE, "Press [Escape] to exit the game.", 40)
+        loseText.draw(win)
+        losesubText.draw(win)
+        losesubText2.draw(win)
+        losesubText3.draw(win)
+
+    if player.gameState == "win" or player.gameState == "lose":
+        if player.gameState == "lose":
+            rank5 = "YOU: failed"
+        elif player.gameState == "win":
+            rank5 = "YOU: " + str(player.score)
+        leaderboard = lvl.Text(640, 430, cn.WHITE, leaderBoardText, 40)
+        rankText1 = lvl.Text(640, 450, cn.WHITE, rank1, 30)
+        rankText2 = lvl.Text(640, 470, cn.WHITE, rank2, 30)
+        rankText3 = lvl.Text(640, 490, cn.WHITE, rank3, 30)
+        rankText4 = lvl.Text(640, 510, cn.WHITE, rank4, 30)
+        yourRank = lvl.Text(640, 530, cn.WHITE, rank5, 30)
+        leaderboard.draw(win)
+        rankText1.draw(win)
+        rankText2.draw(win)
+        rankText3.draw(win)
+        rankText4.draw(win)
+        yourRank.draw(win)
     pygame.display.update()
 
 #create main player object
@@ -254,7 +318,7 @@ while run:
                             if player.lives == 0:
                                 player.gameState = "lose"
 
-    if correct.count("true") == 4:
+    if correct.count("true") == 4 and player.gameState == "1":
         foundCode[1] = '@'
         displayLevel1Win = True
         if keys[pygame.K_RETURN]:
@@ -262,7 +326,7 @@ while run:
             displayLevel1Win = False
             player.gameState = "2"
 
-    elif len(entered) == 4 and correct.count("true") != 4:
+    elif len(entered) == 4 and correct.count("true") != 4 and player.gameState == "1":
         player.lives = 1
         if player.lives == 0:
             player.gameState = "lose"
@@ -273,7 +337,7 @@ while run:
                 lvl.gamemode = False
                 player.gameState = "2"
 
-    if len(entered) > 4:
+    if len(entered) > 4 and player.gameState == "1":
         player.lives = 1
         if player.lives == 0:
             player.gameState = "lose"
@@ -521,10 +585,22 @@ while run:
     if keys[pygame.K_ESCAPE]:
         pygame.quit()
 
-    if keys[pygame.K_y]:
-        player.gameState = "1"
+    if player.gameState == "title":
+        if keys[pygame.K_UP] and currentlySelected == "instructions":
+            currentlySelected = "play"
+        elif keys[pygame.K_DOWN] and currentlySelected == "play":
+            currentlySelected = "instructions"
+        if keys[pygame.K_RETURN]:
+            if currentlySelected == "play":
+                player.gameState = "1"
+            elif currentlySelected == "instructions":
+                player.gameState = "instructions"
 
-    if jumbled:
+    if player.gameState == "instructions" and keys[pygame.K_w]:
+        player.gameState = "title"
+
+
+    if jumbled and player.gameState == "2":
         if keys[pygame.K_b] and typed.count('b') < 1:
             typed.append('b')
         elif keys[pygame.K_o] and typed.count('o') < 2:
@@ -576,14 +652,14 @@ while run:
                     displayLevel2Win = False
                     player.gameState = "3"
             elif correctTyped.count("false") > 0:
-                if lives == 1:
+                if  player.lives == 1:
                     displayLevel2Lose = True
                     if keys[pygame.K_RETURN]:
                         lvl.gamemode = False
                         displayLevel2Lose = False
                         player.gameState = "lose"
                 else:
-                    lives == 1
+                    player.lives == 1
                     foundCode[3] = '!'
                     displayLevel2Lose = True
                     if keys[pygame.K_RETURN]:                           
@@ -591,7 +667,7 @@ while run:
                         displayLevel2Lose = False
                         player.gameState = "3"
 
-    if decode:
+    if decode and player.gameState == "3":
         if keys[pygame.K_b] and typedDecode.count('b') < 1:
             typedDecode.append('b')
         elif keys[pygame.K_a] and typedDecode.count('a') < 1:
@@ -627,46 +703,38 @@ while run:
             elif typedDecode[i] == 'f' and typedLettersDecode.count('f') < 1:
                 typedLettersDecode += typedDecode[i]
 
-        correctTyped = []
-        if len(typed) == 4:
+        correctTypedDecode = []
+        if len(typedDecode) == 4:
             for i in range(len(typedDecode)):
-                if typed[i] == decoded[i]:
-                    correctTyped.append("true")
-                    print("true")
+                if typedDecode[i] == decoded[i]:
+                    correctTypedDecode.append("true")
                 else: 
-                    correctTyped.append("false")
-                    print("false")
+                    correctTypedDecode.append("false")
         
-            if correctTyped.count("true") == 4:
+            if correctTypedDecode.count("true") == 4:
                 displayWinGame = True
                 if keys[pygame.K_RETURN]:
                     lvl.gamemode = False
                     displayWinGame = False
                     player.gameState = "win"
-            elif correctTyped.count("false") > 0:
-                if lives == 1:
-                    displayLoseGame = True
-                    if keys[pygame.K_RETURN]:
-                        lvl.gamemode = False
-                        displayLoseGame = False
-                        player.gameState = "lose"
-                else:
-                    lives == 1
-                    foundCode[3] = '!'
-                    displayLoseGame = True
-                    if keys[pygame.K_RETURN]:                           
-                        lvl.gamemode = False
-                        displayLoseGame = False
-                        player.gameState = "3"
+            elif correctTypedDecode.count("false") > 0:
+                displayLoseGame = True
+                if keys[pygame.K_RETURN]:
+                    lvl.gamemode = False
+                    displayLoseGame = False
+                    player.gameState = "lose"
 
     if player.gameState == "title":
         cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
 
+    elif player.gameState == "instructions":
+        cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
+
     elif player.gameState == "win":
-        pass
+        cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
 
     elif player.gameState == "lose":
-        pass
+        cn.bg = pygame.image.load(os.path.join(cn.BG_DIR, 'titleScreen.jpg'))
 
     #call the game window update function from earlier
     redrawGameWindow()

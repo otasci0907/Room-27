@@ -46,7 +46,6 @@ class Room(object):
             rect = self.furniture[i].get_rect(topleft = self.coords[i])
             win.blit(self.furniture[i], rect)
 
-playText = Text(640, 360, cn.WHITE, "Play", 40)
 titleText = Text(640, 100, cn.WHITE, "Room 27", 150)
 puzzleDirections = Text(1040, 630, cn.BLACK, "Explore the room!", 40)
 pressEnter = Text(1040, 630, cn.BLACK, "Press [Enter]!", 50)
@@ -73,3 +72,10 @@ first = Text(1040, 630, cn.BLACK, "1: yellow", 50)
 second = Text(1040, 630, cn.BLACK, "2: blue", 50)
 third = Text(1040, 630, cn.BLACK, "3: green", 50)
 fourth = Text(1040, 630, cn.BLACK, "4: red", 50)
+
+instructions1 = Text(640, 70, cn.WHITE, "Instructions", 100)
+instructions2 = Text(640, 150, cn.WHITE, "Use arrow keys to move your character around the screen!", 30)
+instructions3 = Text(640, 180, cn.WHITE, "For each room, explore the room and find any secrets inside of them!", 30)
+instructions4 = Text(640, 210, cn.WHITE, "Once you have thoroughly investigated the room, walk up to the piece of furniture that says 'press [enter]' to bring the puzzle!", 30)
+instructions5 = Text(640, 240, cn.WHITE, "Use the clues that you found around the room to solve the puzzles to move onto the next room!", 30)
+instructions6 = Text(640, 690, cn.WHITE, "Press [w] to return to the title screen", 30)
